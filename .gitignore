@@ -13,3 +13,10 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+/config/initializers/omniauth.rb
+/config/initializers/carrierwave.rb
+/config/initializers/s3_direct_upload.rb
+/config/mongoid.yml
+
+.DS_Store
