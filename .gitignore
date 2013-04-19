@@ -20,3 +20,12 @@
 /config/mongoid.yml
 
 .DS_Store
+.project
+/spec/tmp/*
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+.rvmrc
+/vendor/bundle
