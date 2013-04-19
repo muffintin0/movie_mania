@@ -1,0 +1,14 @@
+<div class="large-3 columns">
+	<span data-tooltip class="has-tip" title='<%= render "movies/movie_tooltip", movie: movie %>'>
+	<!-- load movie through ajax -->
+	<!--
+	<a href="#" data-reveal-id="movieModal" class="movieModalRevealer" 
+			data-movie-id="<%= movie.identifier %>">
+		<img src="<%= movie.poster%>" alt="movie poster"/>
+	</a> -->
+	<%= link_to(movie) do %>
+		<img src="<%= movie.poster%>" alt="movie poster"/>
+	<% end %>
+	<p class="movie-info-short"><i><%= movie.name %> (<%= movie.release_time.year %>)</i></p>
+	</span>
+</div>

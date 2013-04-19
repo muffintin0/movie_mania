@@ -1,0 +1,30 @@
+@import "foundation/foundation-global", "foundation/components/global", "foundation/components/panels","foundation/components/buttons", "foundation/components/forms";
+
+.movie-info-short {
+	font-size: 80%;
+	text-align: center;
+}
+
+.movie-tooltip-table {
+	width: 330px;
+}
+
+#movie-image-panel {
+  $bg: #fff;
+  @include panel($bg);
+}
+
+.new-movie-panel {
+  $panel-bg:  darken(#e3e3fa, 1%);
+  $panel-margin-bottom:   emCalc(40px);
+$panel-padding:         emCalc(40px);
+  @include panel;
+}
+
+.movie-extra-list {
+  list-style-type: none;
+  li {
+    padding-left: 10px;
+  }  
+}
+

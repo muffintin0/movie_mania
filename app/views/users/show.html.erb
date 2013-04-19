@@ -1,0 +1,37 @@
+<% provide(:title, "Movie | User")%>
+
+<div class="row">
+	<div class="large-12 columns">
+		<h4>User Profile</h4>
+		<p>Name: <%= @user.name %></p>
+		<p>Email: <%= @user.email if @user.email %></p>
+	</div>
+</div>
+
+<div class="row">
+	<% if not @user.pictures.empty? %>
+  <% @user.pictures.each do |picture| %>
+    <div class="large-3 columns">
+      <%= link_to image_tag(picture.photo_url(:thumb)), picture.photo_url, class: "th radius" %>
+      <div class="name"><%= picture.name %></div>
+      <div class="actions">
+        <%= link_to "edit", edit_picture_path(picture) %> | <%= link_to "remove", picture, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
+</div>
+<div class="row">
+	<div class="large-6 columns">
+	<h5>Add Picture</h5>
+  <%=simple_form_for @user.pictures.build do |f| %>
+	  <%= render "shared/error_messages", object: f.object %>
+	  <%= f.hidden_field :user_id %>
+    <%= f.input :name %>
+    <%= f.input :photo %><br/>
+    <%= f.input :remote_photo_url, label: "or image URL" %>
+	  <%= f.button :submit %>
+	<% end %>
+	</div>
+</div>
+

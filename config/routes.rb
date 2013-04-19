@@ -1,4 +1,22 @@
 Movies::Application.routes.draw do
+  root :to => 'movies#index'
+  
+  match "/movies/get-more", to: "movies#getMore"
+  match "/movies/person-selector/:type" => "movies#personSelector", :as => :person_selector
+  resources :movies
+  resources :s3_images, only: :create
+  resources :users
+  resources :pictures
+  
+  match '/auth/:provider/callback' => 'sessions#create'
+  match '/auth/failure' => 'sessions#failure'
+  match '/signout' => 'sessions#destroy', :as => :signout
+  match '/signin' => 'sessions#new', :as => :signin
+  
+  require 'sidekiq/web'
+  # ...
+  mount Sidekiq::Web, at: '/sidekiq'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

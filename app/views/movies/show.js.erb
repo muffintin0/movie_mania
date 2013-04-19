@@ -1,0 +1,5 @@
+$("#user_review_pagination").html("<%= escape_javascript(paginate @user_reviews, :param_name => :user_review_page, remote: true )%>");
+$("#user_review_section").html("<%= escape_javascript( render :collection => @user_reviews, :partial => "movies/review" )%>");
+
+$("#critic_review_pagination").html("<%= escape_javascript(paginate @critic_reviews, :param_name => :critic_review_page, remote: true )%>");
+$("#critic_review_section").html("<%= escape_javascript( render :collection => @critic_reviews, :partial => "movies/review" )%>");

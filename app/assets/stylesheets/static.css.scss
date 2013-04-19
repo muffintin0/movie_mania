@@ -1,0 +1,72 @@
+// Place all the styles related to the static controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.home-icon16{
+	background:transparent url(../images/house.png) center 0 no-repeat !important;	
+}
+.clients-icon16{
+	background:transparent url(../images/user_green.png) center 0 no-repeat !important;	
+}
+.invoices-icon16{
+	background:transparent url(../images/table_money.png) center 0 no-repeat !important;	
+}
+.categories-icon16{
+	background:transparent url(../images/application_view_icons.png) center 0 no-repeat !important;	
+}
+.save-icon16{
+	background:transparent url(../images/disk16.png) center 0 no-repeat !important;	
+}
+.new-icon16{
+	background:transparent url(../images/page_add16.png) center 0 no-repeat !important;	
+}
+.delete-icon16{
+	background:transparent url(../images/delete16.png) center 0 no-repeat !important;	
+}
+
+#img-chooser-view {
+    background: white;
+    font: 11px Arial, Helvetica, sans-serif;
+}
+
+#img-chooser-view .thumb {
+    padding: 3px;
+}
+
+#img-chooser-view .thumb-wrap {
+    float: left;
+    margin: 4px;
+    margin-right: 0;
+    padding: 5px;
+}
+
+#img-chooser-view .thumb-wrap span {
+    display: block;
+    overflow: hidden;
+    text-align: center;
+}
+
+#img-chooser-view .x-view-over {
+    border:1px solid #dddddd;
+    background-color: #efefef;
+    padding: 4px;
+}
+
+#img-chooser-view .x-item-selected {
+    background: #DFEDFF;
+    border: 1px solid #6593cf;
+    padding: 4px;
+}
+
+#img-chooser-view .x-item-selected .thumb {
+    background:transparent;
+}
+
+#img-chooser-view .x-item-selected span {
+    color:#1A4D8F;
+}
+
+#img-chooser-view .thumb img {
+	width: 100px;
+	height: 100px;
+}

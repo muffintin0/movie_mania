@@ -1,0 +1,285 @@
+
+<% provide(:title, "Movie | #{@movie.name}")%>
+<div class="right">
+	<%= link_to image_tag('/assets/show.png'), movies_path, class:"button secondary small radius", title: "View All Movies" %>
+	<%= link_to image_tag('/assets/add.png'), new_movie_path, class:"button success small radius", title: "Create Movie" %>
+	<%= link_to image_tag('/assets/update.png'), edit_movie_path(@movie), class:"button small radius", title: "Update Movie" %>
+	<%= link_to image_tag('/assets/delete.png'), movie_path(@movie), class:"button alert small radius", title: "Delete Movie",
+		:confirm => "Are you sure to delete the movie", :method => :delete %>
+</div>
+
+<h3><%= @movie.name%> (<%= @movie.release_time.year %>)</h3>
+
+<div class="section-container auto" data-section>
+	<section>
+		<p class="title" data-section-title><a href="#panel1">Essential Information</a></p>
+		<div class="content" data-section-content>
+			<div class="row">
+				<div class="large-5 columns">
+					<% if @movie.processed_images %>
+						<img src="<%= @movie.photo_url(:medium) %>" title = "@movie poster"/><br/></br/>
+					<% else %>
+						<p>Creating thumbnail versions ... </p>
+					<% end %>
+					<% video_url = @movie.official_trail.split(/\//)[-1] %>
+					<div class="flex-video">
+						<iframe width="320" height="240" src="http://www.youtube.com/embed/<%= video_url %>" frameborder="0" 
+							allowfullscreen></iframe>
+					</div>					
+				</div>
+				<div >
+					<table class="large-7 columns" style="border: none;">
+						<tr>
+							<td><span class="label">Overview</span></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<%= @movie.overview %>
+							</td>	
+						</tr>
+						<tr>
+							<td><span class="label">Storyline</span></td>	
+						</tr>
+						<tr>
+							<td colspan="2"><%= @movie.storyline %></td>
+						</tr>
+						<tr>
+							<td><span class="label">Release Time</span></td>
+							<td colspan="2"><%= @movie.release_time.strftime("%F") %></td>	
+						</tr>
+						<tr>
+							<td><span class="label">Genres</span></td>
+							<td><%= @movie.genres.join(" , ")%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Motion Picture Rating</span></td>
+							<td><%= @movie.motion_picture_rating%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Run time</span></td>
+							<td><%= @movie.runtime%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Language</span></td>
+							<td><%= @movie.country%>, <%= @movie.language %></td>
+						</tr>
+						<tr>
+							<td><span class="label">Plot keywords</span></td>
+							<td><%= @movie.plot_keywords.join(" , ")%></td>
+						</tr>
+						<tr>
+							<td><a href="<%= @movie.website %>">Official Website</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<p class="title" data-section-title><a href="#panel1">Box Office and Rating</a></p>
+		<div class="content" data-section-content>
+			<div class="row">
+				<div >
+					<table class="large-6 columns" style="text-align: center;">
+						<thead>
+						<tr>
+							<td>Week</td>
+							<td>Revenue (Million $)</td>
+							<td>Rank</td>
+						</tr>
+						</thead>
+						<tbody>
+							<% @movie.box_office.each do |box_office| %>
+								<tr>
+									<td><%= box_office["time"] %></td>
+									<td><%= box_office["revenue"] %></td>
+									<td><%= box_office["rank"] %></td>
+								</tr>
+							<% end %>	
+						</tbody>			
+					</table>
+				</div>
+				<div >
+					<table class="large-6 columns" style="border:none;">
+						<tr>
+							<td><span class="label">Budget</span></td>
+							<td><%= @movie.budget %></td>	
+						</tr>
+						<tr>
+							<td><span class="label">Revenue</span></td>
+							<td><%= @movie.revenue%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Average Rating</span></td>
+							<td><%= @movie.rating%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Votes</span></td>
+							<td><%= @movie.votes %></td>
+						</tr>
+						<tr>
+							<td><span class="label">Your rating</span></td>
+						</tr>
+						<tr>
+							<td colspan="2">	
+								<div class="row">					
+									<div class="small-4 columns">
+										<input id="movieRatingSpinner" name="movieRatingValue"/>
+									</div>
+									<div class="small-4 columns">
+										<a href="#" class="button prefix">Vote</a>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<p class="title" data-section-title><a href="#panel3">Casts and Crews</a></p>
+		<div class="content" data-section-content>
+			<div class="row">
+				<div class="large-6 columns">
+					<span class="label">Casts</span><br/></br/>
+					<table>
+						<thead>
+							<tr>
+								<td>Character</td>
+								<td>Cast Name</td>
+							</tr>
+						</thead>
+						<tbody>
+							<% @movie.cast_jobs.each do |cast_job| %>	
+								<tr>
+									<td><%= cast_job.character %></td>
+									<td><%= cast_job.person.name %></td>	
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+				<div class="large-6 columns">
+					<span class="label">Crews</span><br/></br/>
+					<table>
+						<thead>
+							<tr>
+								<td>Job Title</td>
+								<td>Name</td>
+							</tr>
+						</thead>
+						<tbody>
+							<% @movie.crew_jobs.each do |crew_job| %>	
+								<tr>
+									<td><%= crew_job.title %></td>		
+									<td><%= crew_job.person.name %></td>	
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<p class="title" data-section-title><a href="#panel3">Other Facts</a></p>
+		<div class="content" data-section-content>		
+			<div class="row">
+				<div class="large-12 columns">
+					<ul class="movie-extra-list">
+						<span class="label">Production Company</span> <br />
+						<li><i class="general-enclosed foundicon-globe"></i>&nbsp;&nbsp;&nbsp;<%= @movie.production_company.name %></li>
+					</ul>
+					<ul class="movie-extra-list">
+						<span class="label">Filming Location</span> <br />
+						<% @movie.filming_locations.each do |location| %>
+							<li><i class="general-enclosed foundicon-location"></i>&nbsp;&nbsp;&nbsp;<%= location %></li>
+						<% end %>
+					</ul>
+					<ul class="movie-extra-list">
+						<span class="label">Movie Trivias</span> <br />
+						<% @movie.trivias.each do |trivia| %>
+							<li><i class="general-enclosed foundicon-right-arrow"></i>&nbsp;&nbsp;&nbsp;<%= trivia %></li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		<div class="panel" id="movie-image-panel">
+		<span class="radius label">Pictures</span><br /><br />
+		<ul class="clearing-thumbs inline-list" data-clearing>
+			<% @movie.images.each do |image| %>
+				<% if @movie.processed_images %>
+					<li><a href="<%= image.photo_url %>" class="th radius"><img src="<%= image.photo_url(:thumb) %>" 
+						data-caption="<%= image.description%>" width=100 height=100></a></li>
+				<% else %>
+					<li>Creating thumbnails ... </li>
+				<% end %>
+			<% end %>
+		</ul>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		<div class="panel">
+			<span class="radius label">Videos and Movie trails</span><br /><br />
+			<%	movieVideoLength = @movie.videos.length
+					movieVideoColumns = 3 
+					movieVideoRows = movieVideoLength/movieVideoColumns + 1 
+			%>
+			<% (0...movieVideoRows).each do |i| %>
+				<div class="row">
+					<% (0...movieVideoColumns).each do |j| %>
+						<% if i*movieVideoColumns + j < movieVideoLength %>
+							<% video_url = @movie.videos[i*movieVideoColumns + j].url.split(/\//)[-1]	%> <!-- get the url to work 
+								with iframe same origin policy -->
+							<div class="large-<%= 12/movieVideoColumns %> columns">
+								<div class="flex-video">
+									<iframe width="320" height="240" src="http://www.youtube.com/embed/<%= video_url %>" frameborder="0" 
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						<% else %>
+							<div class="large-<%= 12/movieVideoColumns %> columns"></div>
+						<% end %>
+					<% end %>		
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="section-container auto" data-section>
+	<section>
+		<p class="title" data-section-title><a href="#panel1">User Reviews</a></p>
+		<div class="content" data-section-content>
+			<div id="user_review_pagination">
+				<%= paginate @user_reviews, :param_name => :user_review_page, remote: true %>
+			</div>
+			<div id="user_review_section">
+				<%= render :collection => @user_reviews, :partial => "movies/review" %>
+			</div>
+		</div>
+	</section>
+	<section>
+		<p class="title" data-section-title><a href="#panel2">Critic Reviews</a></p>
+		<div class="content" data-section-content>
+			<div id="critic_review_pagination">
+				<%= paginate @critic_reviews, :param_name => :critic_review_page, remote: true %>
+			</div>
+			<div id="critic_review_section">
+				<%= render :collection => @critic_reviews, :partial => "movies/review" %>
+			</div>
+		</div>
+	</section>
+</div>
+
+<%= link_to "Back to all movies", movies_path %>

@@ -1,0 +1,154 @@
+<% provide(:title, "Movie | Add New Movie")%>
+
+<div class="right">
+	<%= link_to image_tag('/assets/show.png'), movies_path, class:"button secondary small radius", title: "View All Movies" %>
+</div>
+
+<h3>New Movie</h3>
+
+<%= simple_nested_form_for(@movie, :html=>{ id: 'new_movie_form' }) do |f| %>
+	<%= render "shared/error_messages", object: f.object %>	
+	<div class="row">
+		<div class="new-movie-panel radius">
+		<div class="row">
+		<div class="large-6 columns">
+			<h4>Essential Information</h4>
+			<%= f.input :name %>
+			<%= f.association :genres, collection: Genre.all %>
+			<%= f.input :storyline %>
+			<%= f.label :overview %>
+			<%= f.text_area :overview, rows: 8 %>
+			* Plot keywords <a href="#" class="small" id="new_movie_add_new_plot_keyword_btn"><i class="general-enclosed foundicon-plus"></i>&nbsp;Add Plot keyword</a>
+			<div id="new_movie_plot_keywords_input_fields">
+				<input type="text" name="movie[plot_keywords][]">	
+			</div>
+			<%= f.label :motion_picture_rating %>
+			<%= f.select :motion_picture_rating, get_motion_picture_rating %>
+			<%= f.input :runtime %>
+			<%= f.input :country %>
+			<%= f.input :language %>
+			<%= f.input :website %>
+			<%= f.input :official_trail %>
+			<%= f.input :release_time, input_html: { class:"datepicker" } %>
+			
+			<h4>Extra Information</h4>
+			Filming Locations <a href="#" class="small" id="new_movie_add_new_filming_location_btn"><i class="general-enclosed foundicon-plus"></i>&nbsp;Add location</a>
+			<div id="new_movie_filming_locations_input_fields">
+				<input type="text" name="movie[filming_locations][]">	
+			</div>			
+			Trivias <a href="#" class="small" id="new_movie_add_new_trivia_btn"><i class="general-enclosed foundicon-plus"></i>&nbsp;Add trivia</a>
+			<div id="new_movie_trivias_input_fields">
+				<input type="text" name="movie[trivias][]">	
+			</div>			
+			<%= f.association :production_company, collection: ProductionCompany.all%>
+			<a href="#" class="tiny button" id="new_movie_add_new_company_btn"><i class="general-enclosed foundicon-plus"></i>&nbsp;New Company</a>
+			
+			<h4>Box Office and Rating</h4>
+			<%= f.input :budget %>
+			<%= f.input :revenue %>
+			<p>
+			Box office <a href="#" id="new_movie_add_new_box_office_btn"><i class="general-enclosed foundicon-plus"></i>&nbsp;Add box office</a></p>
+			<div id="new_movie_box_offices_input_fields">
+				<div class="row">
+					<div class="small-3 columns">
+						<span class="right inline">Date</span>
+					</div>
+					<div class="small-9 columns">
+						<input type="text" name="movie[box_office][][time]" class="datepicker_show_week">
+					</div>
+				</div>
+				<div class="row">
+					<div class="small-3 columns">
+						<span class="right inline">Revenue</span>
+					</div>
+					<div class="small-9 columns">
+						<input type="text" name="movie[box_office][][revenue]">
+					</div>
+				</div>
+				<div class="row">
+					<div class="small-3 columns">
+						<span class="right inline">Rank</span>
+					</div>
+					<div class="small-9 columns">
+						<input type="text" name="movie[box_office][][rank]">
+					</div>
+				</div>
+				<hr>
+			</div>	
+		</div>
+		<div class="large-5 columns">
+			<div>
+				<a href="#" class="small button  success radius right" id="new_actor_btn"><i class='general foundicon-add-doc'></i>&nbsp;Create Actor</a>
+				<h4>Casts</h4> 
+				<br/>
+				<div id="new_movies_add_casts_section">
+					<%= f.fields_for :cast_jobs do |cast| %>
+					<div class="row">
+						<div class="small-6 columns">
+							<%= cast.input :character %>
+						</div>
+						<div class="small-6 columns">
+							<%= cast.association :person, collection: Person.all %>			
+						</div>
+					</div>
+					<% end %>
+					<%= f.link_to_add raw("<i class='general-enclosed foundicon-plus'></i>&nbsp;Add Cast"), :cast_jobs %>
+				</div>
+			</div>
+			<hr>
+			<div>				
+				<a href="#" class="small button  success radius right" id="new_actor_btn"><i class='general foundicon-add-doc'></i>&nbsp;Create Crew</a>
+				<h4>Crews</h4>
+				<br/>
+				<div id="new_movies_add_crews_section">
+					<%= f.fields_for :crew_jobs do |crew| %>
+					<div class="row">
+						<div class="small-6 columns">
+							<%= crew.input :title %>
+						</div>
+						<div class="small-6 columns">
+							<%= crew.association :person, collection: Person.all %>			
+						</div>
+					</div>
+					<% end %>
+					<%= f.link_to_add raw("<i class='general-enclosed foundicon-plus'></i>&nbsp;Add Crew"), :crew_jobs %>
+				</div>
+			</div>
+			<hr />	
+			<a href="#" data-reveal-id="imageUploadModal" class="button small">Add Images</a>
+			<div id="new_movie_uploaded_images"></div>
+		</div>
+		</div>
+
+	<%= button_tag( type: 'submit', class: "button success" ) do %>
+		<i class='general foundicon-add-doc'></i>&nbsp;Create Movie
+	<% end %>
+	
+	</div>
+	</div>
+	<% end %>
+	
+	<div id="imageUploadModal" class="reveal-modal">
+	<h4>Upload Movie Images</h4>
+	<p>Select movie poster here ... </p>
+	<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "posterS3Uploader" do %>
+  	<%= file_field_tag :file, multiple: true %>
+	<% end %>	
+	
+	<p>Select all image(s) here ... </p>
+	<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "imageS3Uploader" do %>
+  	<%= file_field_tag :file, multiple: true %>
+	<% end %>
+
+	<script id="template-upload" type="text/x-tmpl">
+		<div class="upload">
+			{%=o.name%}
+			 <div class="progress"><div class="bar" style="width: 0%"></div></div>
+		</div>
+	</script>
+	<a class="close-reveal-modal">&#215;</a>
+	</div>	
+
+	
+	
+

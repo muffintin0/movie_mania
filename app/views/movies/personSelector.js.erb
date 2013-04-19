@@ -1,0 +1,6 @@
+if ( "<%=@type%>" == "cast") {
+	$("#new_movies_add_casts_section").append('<%= escape_javascript(render "movies/person_selector", type: @type) %>'); 
+	}
+else { 
+	$("#new_movies_add_crews_section").append('<%= escape_javascript(render "movies/person_selector", type: @type) %>');
+}

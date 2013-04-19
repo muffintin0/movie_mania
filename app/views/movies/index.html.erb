@@ -1,0 +1,18 @@
+<%= provide(:title, "Movies") %>
+
+<div class="panel">
+	<div class="right">
+		<%= link_to image_tag('/assets/add.png'), new_movie_path, class:"button success small radius", title: "Create Movie" %>
+	</div>
+	<h3>All movies</h3>
+	<div class="row" id="moviesPanel" data-movies-total="<%= @moviesTotal %>">
+		<%= render @movies %>
+	</div>
+	<div id="movieLoading"></div>
+</div>
+
+<div id="movieModal" class="reveal-modal">
+	<h3 id="movieName"></h3>
+	<p id="movieInfo"></p>
+	<a class="close-reveal-modal">&#215;</a>
+</div>

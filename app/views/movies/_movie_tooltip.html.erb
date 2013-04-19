@@ -1,0 +1,32 @@
+<div>
+	<table class="movie-tooltip-table">
+		<tr>
+			<td>Name</td>
+			<td><%= movie.name %></td>
+		</tr>
+		<tr>
+			<td>Storyline</td>
+			<td><%= movie.storyline %></td>
+		</tr>
+		<tr>
+			<td>Genres</td>
+			<td><%= movie.genres.pluck(:name).join(" , ") %>
+		</tr>
+		<tr>
+			<td>Release Time</td>
+			<td><%= movie.release_time.strftime("%F") %></td>
+		</tr>
+		<tr>
+			<td>Motion Picture Rating</td>
+			<td><%= movie.motion_picture_rating %></td>
+		</tr>
+		<tr>
+			<td>Revenue(Million $)</td>
+			<td><%= movie.revenue %></td>
+		</tr>
+		<tr>
+			<td>Average Rating (Votes)</td>
+			<td><%= movie.rating %>(<%= movie.votes %>)</td>
+		</tr>	
+	</table>
+</div>

@@ -24,17 +24,11 @@
 
     <%= render "layouts/topnav" %>
 
-    <!-- Global flash messages -->
+    <!-- Global flash messages. May need to add alert-box.alert.warning and alert-box.alert.error -->
     <%= render "layouts/flash_message" %>
 
-    <%= render "layouts/herounit" %>
-
-    <div class="row">
-    	<div class="large-3 panel columns">
-      	<%= render 'layouts/sidebar' %>
-      </div>
-
-			<div class="large-9 columns">
+	   <div class="row">
+			<div class="large-12 columns">
       	<%= yield %>
      </div>
     </div>

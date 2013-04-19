@@ -1,0 +1,94 @@
+
+<div class="section-container auto" data-section>
+	<section>
+		<p class="title" data-section-title><a href="#panel1">Essential Information</a></p>
+		<div class="content" data-section-content>
+			<div class="row">
+				<div class="large-6 columns">
+					<img src="<%= movie.poster %>" title = "movie poster"/>
+				</div>
+				<div class="large-6 columns">
+					<table>
+						<tr>
+							<td><span class="label">Storyline</span></td>	
+						</tr>
+						<tr>
+							<td colspan="2"><%= movie.storyline %></td>
+						</tr>
+						<tr>
+							<td><span class="label">Motion Picture Rating</span></td>
+							<td><%= movie.motion_picture_rating%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Run time</span></td>
+							<td><%= movie.runtime%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Language</span></td>
+							<td><%= movie.country%>, <%= movie.language %></td>
+						</tr>
+						<tr>
+							<td><span class="label">Plot keywords</span></td>
+							<td><%= movie.plot_keywords.join(" , ")%></td>
+						</tr>
+						<tr>
+							<td><a href="<%= movie.website %>">Official Website</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns">
+					<span class="label">Overview</span><br/>
+					<%= movie.overview %>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<p class="title" data-section-title><a href="#panel1">Box Office</a></p>
+		<div class="content" data-section-content>
+			<div class="row">
+				<div class="large-6 columns">
+					<table>
+					<% movie.box_office.each do |box_office| %>
+						<tr>
+							<td><%= box_office["time"] %></td>
+							<td><%= box_office["revenue"] %></td>
+							<td><%= box_office["rank"] %></td>
+						</tr>
+					<% end %>				
+					</table>
+				</div>
+				<div class="large-6 columns">
+					<table>
+						<tr>
+							<td><span class="label">Budget</span></td>	
+						</tr>
+						<tr>
+							<td colspan="2"><%= movie.budget %></td>
+						</tr>
+						<tr>
+							<td><span class="label">Revenue</span></td>
+							<td><%= movie.revenue%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Average Rating</span></td>
+							<td><%= movie.rating%></td>
+						</tr>
+						<tr>
+							<td><span class="label">Votes</span></td>
+							<td><%= movie.votes %></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns">
+					<span class="label">Overview</span><br/>
+					<%= movie.overview %>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

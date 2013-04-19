@@ -1,0 +1,25 @@
+<div class="row">
+	<div class="small-6 columns">
+		<% if type == "cast" %>
+			<input type="text" name="movie[cast_jobs][][character]" placeholder = "Character Name" >
+		<% else %>
+			<input type="text" name="movie[crew_jobs][][title]" placeholder="Job Title" >
+		<% end %>
+	</div>
+	<div class="small-6 columns">
+	<% if type == "cast" %>
+		<select name="movie[cast_jobs][][person_id]">
+				<% Person.all.each do |person| %>
+					<option value="<%= person.id %>"><%= person.name %></option>
+				<% end %>
+		</select>	
+	<% else %>
+		<select name="movie[crew_jobs][][person_id]">
+				<% Person.all.each do |person| %>
+					<option value="<%= person.id %>"><%= person.name %></option>
+				<% end %>	
+		</select>	
+	<% end %>		
+	</div>												
+</div>
+<br/>

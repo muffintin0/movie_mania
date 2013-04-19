@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="large-12 columns">
+    <div id="application_flash">
+    <% flash.each do |key,value| %>
+      <div class="alert-box <%= key %> radius"><%= value %></div>
+    <% end %>
+    </div>
+  </div>
+</div>
