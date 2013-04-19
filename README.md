@@ -20,3 +20,9 @@ Todo
 2. Add real movie/actor data
 3. Testing
 4. Incorporating JS frameworks  
+
+Other
+-----
+*  Start Redis server  redis-server
+*  Start application 
+*  Start sidekiq  bundle exec sidekiq
