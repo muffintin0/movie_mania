@@ -11,7 +11,7 @@ a information displaying app, main effort is on showing the data. Simple CRUD fu
 Build
 -----
 This app is built with Rails using mongodb database with the mongoid orm. The NoSQL solution makes database design quite flexible. 
-Images/videos are uploaded onto Amazon S3 through background processing. The web interface is designed based on Foundaation 
+Images/videos are uploaded onto Amazon S3 through background processing with redis and sidekiq. The web interface is designed based on Foundaation 
 CSS framework.
 
 Todo
