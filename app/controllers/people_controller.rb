@@ -10,6 +10,9 @@ class PeopleController < ApplicationController
   
   def new
     @person = Person.new
+    @person.born = {}
+    @person.born['dob']=""
+    @person.born['place']=""
     @person.physical_attributes = {}
     @person.physical_attributes["height"]=0.0
     @person.physical_attributes["weight"]=0
@@ -20,10 +23,9 @@ class PeopleController < ApplicationController
   
   def create
     @person = Person.new(params[:person])
-    @person.processed_images = false #the thumbnails have not been created yet, use background worker to do that
     respond_to do |format|
       if @person.save
-        PhotoWorker.perform_async(@person.id)        
+        PersonWorker.perform_async(@person.id)        
         flash[:success] = "Person was successfully created"
         format.html { redirect_to @person }
         format.json { render json: @person, status: :created, location: @movie}
@@ -32,6 +34,10 @@ class PeopleController < ApplicationController
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
     end    
+  end
+  
+  def show
+    @person = Person.where(identifier: params[:id]).first
   end
   
   

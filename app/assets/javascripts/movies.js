@@ -61,8 +61,6 @@ $(function(){
 	$("#posterS3Uploader").S3Uploader();	
 
 	$('#posterS3Uploader').bind('s3_upload_complete',function(e,content){
-		$("#new_movie_form").append('<input type="hidden" name="movie[poster]" value="'+content.url+'"/>');
-		//$("#new_movie_form").append('<input type="hidden" name="movie[remote_photo_url]" value="'+content.url+'"/>');
 		$("#new_movie_form").append('<input type="hidden" name="movie[return_url]" value="'+content.url+'"/>'); //give a shot 
 		$("#new_movie_uploaded_images").append(content.filename+' is uploaded as poster.<br /> ');
 	});

@@ -14,7 +14,6 @@ class Movie
   field :filming_locations, type: Array
   field :website, type: String #optional
   
-  field :poster, type: String
   mount_uploader :photo, PhotoUploader
   
   field :official_trail, type: String

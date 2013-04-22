@@ -9,7 +9,10 @@
 					<%= f.label :gender %>
 					<%= f.select :gender, ["m","f"] %>
 					<%= f.input :biography %>
-					<%= f.input :born, input_html: { class:"datepicker" } %>
+					<%= f.simple_fields_for :born do |bn| %>
+						<%= bn.input :dob, input_html: {class: "datepicker"}, label: "Date of Birth" %>
+						<%= bn.input :place, label: "Birth place" %>
+					<% end %>
 					<%= f.simple_fields_for :physical_attributes do |ph| %>
 						<%= ph.input :height %>
 						<%= ph.input :weight %>
@@ -48,9 +51,23 @@
 							</div>
 						</div>
 						<hr>
-						
+									
 						<p>Upload Movie Images</p>						
-						<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "posterS3Uploader" do %>
+
+						<div style="display:none;">
+						<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "personImageS3Uploader" do %>
+					  	<div class="row">
+								<div class="small-3 columns">
+									<span class="right inline">Images</span>
+								</div>
+								<div class="small-9 columns">
+									<%= file_field_tag :file, multiple: true %>
+								</div>
+							</div>	
+						<% end %>
+						</div>
+
+						<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "personPhotoS3Uploader" do %>
 					  	<div class="row">
 								<div class="small-3 columns">
 									<span class="right inline">Portrait</span>
@@ -58,10 +75,10 @@
 								<div class="small-9 columns">
 									<%= file_field_tag :file, multiple: true %>
 								</div>
-							</div>				  	
-						<% end %>	
-						<br/><br/>
-						<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "imageS3Uploader" do %>
+							</div>	
+						<% end %>						
+
+						<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "personImageS3Uploader" do %>
 					  	<div class="row">
 								<div class="small-3 columns">
 									<span class="right inline">Images</span>
@@ -78,6 +95,7 @@
 								 <div class="progress"><div class="bar" style="width: 0%"></div></div>
 							</div>
 						</script>
+						<div id="new_person_uploaded_images"></div>
 					</div>	
 				</div>
 			</div>

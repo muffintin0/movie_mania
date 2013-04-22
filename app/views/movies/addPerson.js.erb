@@ -19,21 +19,20 @@ $("#new_person_add_new_public_listing_btn").click(function(){
 	$(".datepicker_show_week").datepicker({showWeek: true,firstDay: 1,dateFormat: "yy-mm-dd"});
  	return false;
  });
- 
-//upload to s3
-$("#posterS3Uploader").S3Uploader();	
 
-$('#posterS3Uploader').bind('s3_upload_complete',function(e,content){
-	$("#new_person_form").append('<input type="hidden" name="person[portrait]" value="'+content.url+'"/>');
-	$("#new_person_form").append('<input type="hidden" name="person[return_url]" value="'+content.url+'"/>'); //for carrierwave to pickup as remote url 
+//upload to s3
+$("#personPhotoS3Uploader").S3Uploader();	
+
+$('#personPhotoS3Uploader').bind('s3_upload_complete',function(e,content){
+	$("#new_person_form").append('<input type="hidden" name="person[return_url]" value="'+content.url+'"/>'); //give a shot 
 	$("#new_person_uploaded_images").append(content.filename+' is uploaded as poster.<br /> ');
 });
-
-$("#imageS3Uploader").S3Uploader();
+	
+$("#personImageS3Uploader").S3Uploader();
 	
 var uploaded_image_index = 0;
 
-$('#imageS3Uploader').bind('s3_upload_complete',function(e,content){
+$('#personImageS3Uploader').bind('s3_upload_complete',function(e,content){
 	$("#new_person_form").append('<input type="hidden" multiple="multiple" name="person[images_attributes]['+uploaded_image_index+'][url]" value="'+content.url+'"/>');
 	$("#new_person_form").append('<input type="hidden" multiple="multiple" name="person[images_attributes]['+uploaded_image_index+'][size]" value="'+content.filesize+'"/>');
 	$("#new_person_form").append('<input type="hidden" multiple="multiple" name="person[images_attributes]['+uploaded_image_index+'][return_url]" value="'+content.url+'"/>'); //for carrierwave to pickup as remote url 
@@ -42,7 +41,8 @@ $('#imageS3Uploader').bind('s3_upload_complete',function(e,content){
 	uploaded_image_index ++;
 });
 
-$('#imageS3Uploader').bind('s3_uploads_start',function(e){
-	//alert('start uploading');
-});	
+	$('#portraitS3Uploader').bind('s3_uploads_start',function(e){
+		alert('start uploading');
+	});	
+
    

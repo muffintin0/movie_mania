@@ -6,7 +6,9 @@ class Person
   field :gender, type: String
   field :identifier, type: String
   field :biography, type: String 
-  field :portrait, type: String # the image url
+  mount_uploader :photo, PhotoUploader
+  field :processed_images, type: Boolean, default: false
+  #field :portrait, type: String # the image url
   field :born, type: Hash #{dob:Date,place:String} optional 
   field :physical_attributes, type: Hash #{height:Float, weight:Float ...} optional
   field :official_site, type: String #optional
@@ -25,9 +27,8 @@ class Person
   validates :gender, presence: true, inclusion: {in: ["m","f"]}
   validates :identifier, uniqueness: true
   validates :biography, presence: true
-  validates :portrait, presence: true
 
-  embeds_many :images, as: :viewable
+  embeds_many :images, as: :viewable, cascade_callbacks: true #so carrierwave will be trigged to create thumbnail
   embeds_many :videos, as: :playable
   has_many :cast_jobs
   has_many :crew_jobs
