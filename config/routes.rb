@@ -2,8 +2,10 @@ Movies::Application.routes.draw do
   root :to => 'movies#index'
   
   match "/movies/get-more", to: "movies#getMore"
+  match "/movies/add-person", to: "movies#addPerson"
   match "/movies/person-selector/:type" => "movies#personSelector", :as => :person_selector
   resources :movies
+  resources :people
   resources :s3_images, only: :create
   resources :users
   resources :pictures

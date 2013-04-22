@@ -1,0 +1,48 @@
+$('#addPersonModalContent').html("<%= escape_javascript(render "people/form", person: @person )%>");
+
+ //date picker for entering date
+ $(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
+ $(".datepicker_show_week").datepicker({showWeek: true,firstDay: 1,dateFormat: "yy-mm-dd"});
+ 
+$("#new_person_add_new_trivia_btn").click(function(){
+ 	$("#new_person_trivias_input_fields").append('<input type="text" name="person[trivias][]">');
+ 	return false;
+});
+
+$("#new_person_add_new_public_listing_btn").click(function(){
+	$("#new_person_public_listings_input_fields").append('<div class="row"><div class="small-3 columns"><span class="right inline">When</span></div>'+
+		'<div class="small-9 columns"><input type="text" name="person[public_listings][][when]" class="datepicker_show_week"></div></div>'+
+		'<div class="row"><div class="small-3 columns"><span class="right inline">Where/span></div>'+
+		'<div class="small-9 columns"><input type="text" name="person[public_listings][][where]"></div></div>'+
+		'<div class="row"><div class="small-3 columns"><span class="right inline">What</span></div>'+
+		'<div class="small-9 columns"><input type="text" name="person[public_listings][][what]"></div></div><hr>');
+	$(".datepicker_show_week").datepicker({showWeek: true,firstDay: 1,dateFormat: "yy-mm-dd"});
+ 	return false;
+ });
+ 
+//upload to s3
+$("#posterS3Uploader").S3Uploader();	
+
+$('#posterS3Uploader').bind('s3_upload_complete',function(e,content){
+	$("#new_person_form").append('<input type="hidden" name="person[portrait]" value="'+content.url+'"/>');
+	$("#new_person_form").append('<input type="hidden" name="person[return_url]" value="'+content.url+'"/>'); //for carrierwave to pickup as remote url 
+	$("#new_person_uploaded_images").append(content.filename+' is uploaded as poster.<br /> ');
+});
+
+$("#imageS3Uploader").S3Uploader();
+	
+var uploaded_image_index = 0;
+
+$('#imageS3Uploader').bind('s3_upload_complete',function(e,content){
+	$("#new_person_form").append('<input type="hidden" multiple="multiple" name="person[images_attributes]['+uploaded_image_index+'][url]" value="'+content.url+'"/>');
+	$("#new_person_form").append('<input type="hidden" multiple="multiple" name="person[images_attributes]['+uploaded_image_index+'][size]" value="'+content.filesize+'"/>');
+	$("#new_person_form").append('<input type="hidden" multiple="multiple" name="person[images_attributes]['+uploaded_image_index+'][return_url]" value="'+content.url+'"/>'); //for carrierwave to pickup as remote url 
+	$("#new_person_uploaded_images").append(content.filename+' is uploaded.<br /> ');
+	$("#new_person_uploaded_images").append('<input type="text" multiple="multiple" name="person[images_attributes]['+uploaded_image_index+'][description]" placeholder="Enter description" />');
+	uploaded_image_index ++;
+});
+
+$('#imageS3Uploader').bind('s3_uploads_start',function(e){
+	//alert('start uploading');
+});	
+   

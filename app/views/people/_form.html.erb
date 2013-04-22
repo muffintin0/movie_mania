@@ -1,0 +1,90 @@
+
+<%= simple_form_for(person, :html=>{ id: 'new_person_form' }) do |f| %>
+	<%= render "shared/error_messages", object: f.object %>	
+	<div class="row">
+		<div class="new-movie-panel radius">
+			<div class="row">
+				<div class="large-6 columns">
+					<%= f.input :name %>
+					<%= f.label :gender %>
+					<%= f.select :gender, ["m","f"] %>
+					<%= f.input :biography %>
+					<%= f.input :born, input_html: { class:"datepicker" } %>
+					<%= f.simple_fields_for :physical_attributes do |ph| %>
+						<%= ph.input :height %>
+						<%= ph.input :weight %>
+					<% end %>
+					<%= f.input :official_site %>
+				</div>
+				<div class="large-5 columns">
+					Trivias <a href="#" class="small" id="new_person_add_new_trivia_btn"><i class="general-enclosed foundicon-plus"></i>&nbsp;Add trivia</a>
+					<div id="new_person_trivias_input_fields">
+						<input type="text" name="person[trivias][]">	
+					</div> 
+					Public Listings <a href="#" id="new_person_add_new_public_listing_btn"><i class="general-enclosed foundicon-plus"></i>&nbsp;Add public listing</a></p>
+					<div id="new_person_public_listings_input_fields">
+						<div class="row">
+							<div class="small-3 columns">
+								<span class="right inline">When</span>
+							</div>
+							<div class="small-9 columns">
+								<input type="text" name="person[public_listings][][when]" class="datepicker_show_week">
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-3 columns">
+								<span class="right inline">Where</span>
+							</div>
+							<div class="small-9 columns">
+								<input type="text" name="person[public_listings][][where]">
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-3 columns">
+								<span class="right inline">What</span>
+							</div>
+							<div class="small-9 columns">
+								<input type="text" name="person[public_listings][][what]">
+							</div>
+						</div>
+						<hr>
+						
+						<p>Upload Movie Images</p>						
+						<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "posterS3Uploader" do %>
+					  	<div class="row">
+								<div class="small-3 columns">
+									<span class="right inline">Portrait</span>
+								</div>
+								<div class="small-9 columns">
+									<%= file_field_tag :file, multiple: true %>
+								</div>
+							</div>				  	
+						<% end %>	
+						<br/><br/>
+						<%= s3_uploader_form  post: s3_images_url, as: "s3_image[image_url]", id: "imageS3Uploader" do %>
+					  	<div class="row">
+								<div class="small-3 columns">
+									<span class="right inline">Images</span>
+								</div>
+								<div class="small-9 columns">
+									<%= file_field_tag :file, multiple: true %>
+								</div>
+							</div>	
+						<% end %>
+					
+						<script id="template-upload" type="text/x-tmpl">
+							<div class="upload">
+								{%=o.name%}
+								 <div class="progress"><div class="bar" style="width: 0%"></div></div>
+							</div>
+						</script>
+					</div>	
+				</div>
+			</div>
+							
+			<%= button_tag( type: 'submit', class: "button success" ) do %>
+				<i class='general foundicon-add-doc'></i>&nbsp;Create Person
+			<% end %>
+		</div>
+	</div>	
+<% end %>

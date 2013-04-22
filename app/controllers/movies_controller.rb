@@ -54,6 +54,13 @@ class MoviesController < ApplicationController
 	 end
 	end
 
+  def addPerson 
+    @person = Person.new
+    @person.physical_attributes = {}
+    @person.physical_attributes["height"]=0.0
+    @person.physical_attributes["weight"]=0
+  end
+  
 	def create
 		#pass in genre_ids array
 		@movie = Movie.new(params[:movie])

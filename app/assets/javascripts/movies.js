@@ -6,7 +6,7 @@ $(function(){
 			url:'/movies/'+movieId,
 		});
 	});
-
+	
 	//for infinite scolling
 	var movieOffset = 0;
 	var moviesTotal = parseInt($('#moviesPanel').data('movies-total'));

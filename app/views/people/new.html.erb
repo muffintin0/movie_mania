@@ -1,0 +1,10 @@
+
+<% provide(:title, "Movie | Add New Person")%>
+
+<div class="right">
+	<%= link_to image_tag('/assets/show.png'), people_path, class:"button secondary small radius", title: "View All People" %>
+</div>
+
+<h3>New Person</h3>
+
+<%= render "form", person: @person%>

@@ -78,7 +78,7 @@
 		</div>
 		<div class="large-5 columns">
 			<div>
-				<a href="#" class="small button  success radius right" id="new_actor_btn"><i class='general foundicon-add-doc'></i>&nbsp;Create Actor</a>
+				<a href="/movies/add-person" data-reveal-id="addPersonModal" data-remote="true" class="small button  success radius right" id="new_actor_btn"><i class='general foundicon-add-doc'></i>&nbsp;Create Actor</a>
 				<h4>Casts</h4> 
 				<br/>
 				<div id="new_movies_add_casts_section">
@@ -97,7 +97,7 @@
 			</div>
 			<hr>
 			<div>				
-				<a href="#" class="small button  success radius right" id="new_actor_btn"><i class='general foundicon-add-doc'></i>&nbsp;Create Crew</a>
+				<a href="/movies/add-person" data-reveal-id="addPersonModal" data-remote="true" class="small button  success radius right" id="new_actor_btn"><i class='general foundicon-add-doc'></i>&nbsp;Create Crew</a>
 				<h4>Crews</h4>
 				<br/>
 				<div id="new_movies_add_crews_section">
@@ -148,6 +148,12 @@
 	</script>
 	<a class="close-reveal-modal">&#215;</a>
 	</div>	
+	
+	<div id="addPersonModal" class="reveal-modal">
+		<h4>Add Person</h4>
+		<a class="close-reveal-modal">&#215;</a>
+		<div id="addPersonModalContent"></div>
+	</div>
 
 	
 	
